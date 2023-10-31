@@ -3,13 +3,15 @@ const movies = require("./movies.json")
 const crypto = require("node:crypto")
 const { validateMovie, validatePartialMovie } = require("./schemas/movies")
 const app = express()
+const cors = require("cors")
 
 app.disable("x-powered-by") //quita el header x-powered-by: Express
 app.use(express.json())
+app.use(cors())
 
-app.get("/", (req, res) => {
-    res.json({ message: "Hola Mundo" })
-})
+// app.get("/", (req, res) => {
+//     res.json({ message: "Hola Mundo" })
+// })
 
 // *** CORS ***
 // métodos normales: GET/HEAD/POST
@@ -18,7 +20,7 @@ app.get("/", (req, res) => {
 
 //Todos los recurso que sean Movies se identifican con /movies
 app.get("/movies", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
+    // res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
 
     const { genre } = req.query
     if (genre) {
@@ -62,7 +64,7 @@ app.post("/movies", (req, res) => {
 })
 
 app.delete('/movies/:id', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
+    // res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
 
     const { id } = req.params
     const movieIndex = movies.findIndex(movie => movie.id === id)
@@ -100,15 +102,15 @@ app.patch("/movies/:id", (req, res) => {
 })
 
 //configuracion OPTIONS para que funcione el botin de eliminar:
-app.options("/movies/:id", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
-    res.header("Access-Control-Allow-Methods", "GET, PATCH, DELETE, PUT, POST");
+// app.options("/movies/:id", (req, res) => {
+//     res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+//     res.header("Access-Control-Allow-Methods", "GET, PATCH, DELETE, PUT, POST");
     
-    res.status(200).send();
-});
+//     res.status(200).send();
+// });
 
 
-const PORT = process.env.PORT ?? 1234
+const PORT = process.env.PORT ?? 1235
 
 app.listen(PORT, () => {
     console.log(`server listening on port http://localhost:${PORT}`);

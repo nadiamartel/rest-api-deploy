@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Probar API Rest</title>
+    <title>API Rest</title>
     <style>
         article {
           border: 1px solid #ccc;
@@ -19,7 +19,7 @@
       </style>
 
 <script type="module">
-    fetch('http://localhost:1234/movies')
+    fetch('http://localhost:1235/movies')
       .then(res => res.json())
       .then(movies => {
         const html = movies.map(movie => {
@@ -41,7 +41,7 @@
             const article = e.target.closest('article')
             const id = article.dataset.id
 
-            fetch(`http://localhost:1234/movies/${id}`, {
+            fetch(`http://localhost:1235/movies/${id}`, {
               method: 'DELETE'
             })
               .then(res => {
